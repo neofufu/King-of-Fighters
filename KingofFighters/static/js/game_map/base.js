@@ -12,6 +12,9 @@ class GameMap extends game_objects {
         this.$canvas.focus();
 
         this.controller = new Controller(this.$canvas);
+
+        this.time_left = 60000;  // 单位：毫秒
+        this.$timer = this.root.$kof.find(".kof-head-timer");
     }
 
     start() {
@@ -19,6 +22,11 @@ class GameMap extends game_objects {
     }
 
     update() { //不更新的话会存下轨迹：画线
+
+        this.time_left -= this.timedelta;
+        if (this.time_left < 0) this.time_left = 60000;
+        this.$timer.text(parseInt(this.time_left / 1000));
+
         this.render();
     }
 
